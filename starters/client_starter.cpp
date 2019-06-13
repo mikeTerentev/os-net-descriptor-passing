@@ -18,10 +18,7 @@ int main() {
             }
             client.make_new_post(message);
         }
-        client.close_c();
     } catch (client_exception &e) {
         printError(e.what());
     }
-
-
 }

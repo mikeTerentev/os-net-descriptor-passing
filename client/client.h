@@ -10,6 +10,7 @@
 class client {
 public:
     client(std::string login);
+    ~client();
     void close_c();
     void make_new_post(std::string message);
 

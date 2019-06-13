@@ -36,6 +36,9 @@ client::client(std::string login): login(const_cast<char *>(login.data())) {
 
 
 }
+client::~client(){
+    close_c();
+}
 
 int client::gen_fd(int sckt) {
     char data[BF_SZ];
