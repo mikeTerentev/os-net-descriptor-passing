@@ -1,18 +1,24 @@
+#include <unistd.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <sys/stat.h>
+#include <errno.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdint.h>
 #include <iostream>
-#include <server/server_exception.h>
 #include <utils/utils.h>
 #include <server/server.h>
+#include <server/server_exception.h>
 
-int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        printError("Invalid args : socket_filepath expected");
-        return -1;
-    }
-    try {
-        server server(argv[1]);
-        server.run();
-    } catch (server_exception& e) {
-        printError(e.what());
-        return -1;
-    }
+
+int main() {
+   server server;
+   try{
+       server.run();
+   } catch (server_exception& e){
+       printError(e.what());
+   }
 }

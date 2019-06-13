@@ -23,14 +23,10 @@ add_library(client-lib STATIC
 
 
 add_library(common STATIC
-        utils/data_builder.cpp
-        utils/data_builder.h
-        utils/fifo.cpp
-        utils/fifo.h
-        utils/utils.h
-        utils/utils.cpp
         utils/wrapper.cpp
         utils/wrapper.h
+        utils/utils.cpp
+        utils/utils.h
         )
 
 set_target_properties(common PROPERTIES LINKER_LANGUAGE CXX)

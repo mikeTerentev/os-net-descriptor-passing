@@ -1,43 +1,26 @@
 //
-// Created by Михаил Терентьев on 2019-06-08.
+// Created by Михаил Терентьев on 2019-06-13.
 //
 
-#ifndef MY_SERVER
-#define MY_SERVER
-
-#include <future>
-#include <random>
-#include <stdexcept>
-#include <unordered_set>
-
-#include <cstring>
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <sys/stat.h>
-#include <sys/types.h>
-#include <sys/un.h>
-
-#include "utils/utils.h"
+#ifndef OS_NET_DESCRIPTOR_PASSING_SERVER_H
+#define OS_NET_DESCRIPTOR_PASSING_SERVER_H
 
 
-struct server {
-    server(std::string const &path);
+class server {
 
-    [[noreturn]] void run();
+public:
+    server();
 
-    ~server();
-
-    static constexpr size_t BUFFER_SIZE = 2048;
+    [[noreturn]]  void run();
 
 private:
-    const std::string path;
+    void process(int fd);
+
+private:
     wrapper socket_fd;
-
-    static constexpr size_t CONNS = 5;
-
-    void fillAddress(sockaddr_un &address, const std::string &path);
-
-    void send_f_response(std::string& response,wrapper& client_fd);
+    static const int BF_SZ = 2048;
+    static const int LIMIT = 13;
 };
 
-#endif
+
+#endif //OS_NET_DESCRIPTOR_PASSING_SERVER_H

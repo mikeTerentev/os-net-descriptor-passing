@@ -1,32 +1,25 @@
-#ifndef MY_CLIENT
-#define MY_CLIENT
+//
+// Created by Михаил Терентьев on 2019-06-13.
+//
 
-#include <stdexcept>
-#include <string>
-#include <vector>
+#ifndef OS_NET_DESCRIPTOR_PASSING_CLIENT_H
+#define OS_NET_DESCRIPTOR_PASSING_CLIENT_H
 
-#include <arpa/inet.h>
-#include <cstring>
-#include <fcntl.h>
-#include <sys/socket.h>
-#include <sys/un.h>
+#include "utils/wrapper.h"
 
-#include "utils/utils.h"
-
-struct client {
-    client(std::string const &path);
-    ~client();
-    std::string process_request(std::string data);
+class client {
+public:
+    client(std::string login);
+    void close_c();
+    void make_new_post(std::string message);
 
 private:
-    wrapper r_fd;
-    wrapper w_fd;
+    static const int BF_SZ = 2048;
 
-    static constexpr size_t BUFFER_SIZE = 2048;
-
-    void make_rw_fd(wrapper &socket_fd);
-
-    void fillArddess(sockaddr_un& address, const std::string &path);
+    char* login;
+    wrapper socket_fd;
+    int gen_fd(int sckt);
 };
 
-#endif // MY_CLIENT
+
+#endif //OS_NET_DESCRIPTOR_PASSING_CLIENT_H
