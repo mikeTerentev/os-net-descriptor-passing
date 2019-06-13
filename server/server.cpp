@@ -40,7 +40,7 @@ server::server() {
     if (listen(socket_fd.getDescriptor(), LIMIT) == -1) {
         throw server_exception("Unable to listen on socket");
     }
-
+    println("Ready!");
 }
 
 [[noreturn]] void server::run() {
